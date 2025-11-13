@@ -1,0 +1,25 @@
+package com.example.le_mans_hotel.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "rooms")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Room {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String roomType; 
+    private String description;
+    private Double price;
+    @Builder.Default
+    private Boolean available=true;
+    
+    private String imageUrl; 
+}
