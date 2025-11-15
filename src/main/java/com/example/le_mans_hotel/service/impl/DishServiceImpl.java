@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.le_mans_hotel.exception.ResourceNotFoundException;
 import com.example.le_mans_hotel.model.Dish;
 import com.example.le_mans_hotel.repository.DishRepository;
 import com.example.le_mans_hotel.service.DishService;
@@ -37,7 +38,7 @@ public class DishServiceImpl implements DishService{
 	}
 	@Override
 	public Dish updateDish(Long id,Dish dishDetails) {
-         Dish dish = dishRepository.findById(id).orElseThrow();
+         Dish dish = dishRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("The Dish With this Id is Not Found."));;
          dish.setCuisineName(dishDetails.getCuisineName());
          dish.setDescription(dishDetails.getDescription());
          dish.setPricePerPerson(dishDetails.getPricePerPerson());

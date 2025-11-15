@@ -32,13 +32,17 @@ public class OfferScheduler {
         }
 
         for (Offer offer : offers) {
+        	if(offer.getActive()==false)continue;
             for (User user : users) {
                 String subject = "Le Mans Hotel Offer: " + offer.getTitle();
                 String body = offer.getDescription() +
                               "\n\nBook now at Le Mans Hotel!";
                 emailService.sendOfferMail(user.getEmail(), subject, body);
             }
+            offer.setActive(false);
         }
+        
+        offerRepository.saveAll(offers);
 
         System.out.println(" Daily offers sent successfully to all users.");
     }

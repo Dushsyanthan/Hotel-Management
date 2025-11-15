@@ -85,6 +85,13 @@ public class BookingServiceImpl implements BookingService {
         Booking saved = bookingRepository.save(booking);
         return DtoMapper.toBookingResponse(saved);
     }
+    
+    @Override
+    public Booking update(Long id,String status) {
+    	  Booking booking = bookingRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("The Booking With this Id is Not Found."));
+          booking.setBookingStatus(Enum.valueOf(BookingStatus.class, status));
+          return bookingRepository.save(booking);
+    }
 
     @Override
     public double calculateTotalCost(Booking booking) {

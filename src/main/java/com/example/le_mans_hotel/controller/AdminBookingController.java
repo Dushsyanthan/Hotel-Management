@@ -1,7 +1,6 @@
 package com.example.le_mans_hotel.controller;
 
 import com.example.le_mans_hotel.model.Booking;
-import com.example.le_mans_hotel.model.BookingStatus;
 import com.example.le_mans_hotel.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +19,7 @@ public class AdminBookingController {
     }
 
     @PutMapping("/{id}/status")
-    public Booking updateBookingStatus(@PathVariable Long id, @RequestParam("status") String status) {
-        Booking booking = bookingService.findById(id).orElseThrow();
-        booking.setBookingStatus(Enum.valueOf(BookingStatus.class, status));
-        return bookingService.save(booking);
+    public Booking updateBookingStatus(@PathVariable Long id, @RequestParam String status) {
+        return bookingService.update(id,status);
     }
 }

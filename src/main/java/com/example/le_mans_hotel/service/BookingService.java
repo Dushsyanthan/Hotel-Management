@@ -14,4 +14,5 @@ public interface BookingService {
     List<Booking> findByUserEmail(String email);
     BookingResponse createBooking(BookingRequest request, String userEmail);
     double calculateTotalCost(Booking booking);
+	Booking update(Long id, String status);
 }
