@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class BookingRequest {
     private Long roomId;
     private Long dishId;
-    private LocalDate bookingDate;
+    private LocalDate checkInDate;
+    private LocalDate checkOutDate;
     private Integer noOfPeron;
 }

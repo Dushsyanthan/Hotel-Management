@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDate;
 
+import com.example.le_mans_hotel.model.BookingStatus;
+
 @Data
 @Builder
 public class BookingResponse {
@@ -11,6 +13,8 @@ public class BookingResponse {
     private String roomName;
     private String cuisineType;
     private double totalCost;
-    private String status;
-    private LocalDate bookingDate;
+    private BookingStatus status;
+    private LocalDate checkInDate;
+    private LocalDate checkOutDate;
+
 }

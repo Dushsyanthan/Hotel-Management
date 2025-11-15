@@ -20,6 +20,7 @@ public class Offer {
     
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
+    
     @Builder.Default
     private Boolean active = true;
     

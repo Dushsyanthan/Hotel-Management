@@ -1,6 +1,6 @@
 package com.example.le_mans_hotel.service.impl;
 
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.example.le_mans_hotel.dto.BookingRequest;
 import com.example.le_mans_hotel.dto.BookingResponse;
 import com.example.le_mans_hotel.dto.DtoMapper;
+import com.example.le_mans_hotel.exception.ResourceNotFoundException;
 import com.example.le_mans_hotel.model.Booking;
+import com.example.le_mans_hotel.model.BookingStatus;
 import com.example.le_mans_hotel.model.Dish;
 import com.example.le_mans_hotel.model.Room;
 import com.example.le_mans_hotel.model.User;
@@ -26,11 +28,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
 
-	private final BookingRepository bookingRepository;
+    private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
     private final DishRepository dishRepository;
-    
+
     @Override
     public List<Booking> findAll() {
         return bookingRepository.findAll();
@@ -49,7 +51,8 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<Booking> findByUserEmail(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+
         return bookingRepository.findAll().stream()
                 .filter(b -> b.getUser().getId().equals(user.getId()))
                 .collect(Collectors.toList());
@@ -58,11 +61,13 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingResponse createBooking(BookingRequest request, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + userEmail));
+
         Room room = roomRepository.findById(request.getRoomId())
-                .orElseThrow(() -> new RuntimeException("Room not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with ID: " + request.getRoomId()));
+
         Dish dish = dishRepository.findById(request.getDishId())
-                .orElseThrow(() -> new RuntimeException("Dish not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Dish not found with ID: " + request.getDishId()));
 
         // Calculate total cost
         double totalCost = dish.getPricePerPerson() * request.getNoOfPeron();
@@ -71,9 +76,10 @@ public class BookingServiceImpl implements BookingService {
                 .user(user)
                 .room(room)
                 .dish(dish)
-                .bookingDate(request.getBookingDate() != null ? request.getBookingDate() : LocalDate.now())
-                .status("CONFIRMED")
-                .totalCost(totalCost+room.getPrice())
+                .checkInDate(request.getCheckInDate())
+                .checkOutDate(request.getCheckOutDate())
+                .bookingStatus(BookingStatus.CONFIRMED)
+                .totalCost(totalCost + room.getPrice())
                 .build();
 
         Booking saved = bookingRepository.save(booking);
@@ -83,12 +89,15 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public double calculateTotalCost(Booking booking) {
         double totalCost = 0.0;
-        if (booking.getRoom() != null && booking.getRoom().getPrice() != null)
-            totalCost += booking.getRoom().getPrice();
 
-        if (booking.getDish() != null && booking.getDish().getPricePerPerson() != null && booking.getDish() != null)
-            totalCost += booking.getDish().getPricePerPerson() * booking.getDish().getPricePerPerson();
-        
+        if (booking.getRoom() != null && booking.getRoom().getPrice() != null) {
+            totalCost += booking.getRoom().getPrice();
+        }
+
+        if (booking.getDish() != null && booking.getDish().getPricePerPerson() != null) {
+            totalCost += booking.getDish().getPricePerPerson() * booking.getNoOfPerson();
+        }
+
         return totalCost;
     }
 }

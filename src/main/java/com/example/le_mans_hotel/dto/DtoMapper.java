@@ -18,8 +18,9 @@ public class DtoMapper {
                 .bookingId(booking.getId())
                 .cuisineType(booking.getDish().getCuisineName())
                 .totalCost(booking.getTotalCost())
-                .status(booking.getStatus())
-                .bookingDate(booking.getBookingDate())
+                .status(booking.getBookingStatus())
+                .checkInDate(booking.getCheckInDate())
+                .checkOutDate(booking.getCheckOutDate())
                 .build();
     }
 

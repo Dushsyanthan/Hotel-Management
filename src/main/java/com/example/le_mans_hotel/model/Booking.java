@@ -1,17 +1,30 @@
 package com.example.le_mans_hotel.model;
 
-import jakarta.persistence.*;
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "bookings")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
 public class Booking {
 
     @Id
@@ -33,13 +46,17 @@ public class Booking {
     @NotNull(message = "Cuisine selection is required")
     private Dish dish;
 
-    @NotNull(message = "Booking date is required")
-    private LocalDate bookingDate;
+    @NotNull(message = "Check-in date is required")
+    @Future(message = "Check-in date must be in the future")
+    private LocalDate checkInDate;
 
-    private String status;
+    @NotNull(message = "Check-out date is required")
+    @Future(message = "Check-out date must be in the future")
+    private LocalDate checkOutDate;
+
 
     @Enumerated(EnumType.STRING)
-    private BookingStatus paymentStatus;
+    private BookingStatus bookingStatus;
 
     @NotNull(message = "Number of persons is required")
     @Min(value = 1, message = "At least one person must be booked")
@@ -48,4 +65,5 @@ public class Booking {
     @NotNull(message = "Total cost cannot be null")
     @Min(value = 1, message = "Total cost must be positive")
     private Double totalCost;
+
 }

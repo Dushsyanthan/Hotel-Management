@@ -22,7 +22,7 @@ public class AdminBookingController {
     @PutMapping("/{id}/status")
     public Booking updateBookingStatus(@PathVariable Long id, @RequestParam("status") String status) {
         Booking booking = bookingService.findById(id).orElseThrow();
-        booking.setPaymentStatus(Enum.valueOf(BookingStatus.class, status));
+        booking.setBookingStatus(Enum.valueOf(BookingStatus.class, status));
         return bookingService.save(booking);
     }
 }
