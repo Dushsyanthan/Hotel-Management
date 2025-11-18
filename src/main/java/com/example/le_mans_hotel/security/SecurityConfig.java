@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 @Configuration
 @RequiredArgsConstructor
 @EnableMethodSecurity
@@ -23,12 +22,34 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()  
+
+                // ✔ Swagger access allowed for everyone
+                .requestMatchers(
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs",
+                    "/webjars/**"
+                ).permitAll()
+
+                // ✔ Public Login/Register API
+                .requestMatchers("/auth/**").permitAll()
+
+                // ✔ Admin AI endpoints
+                .requestMatchers("/api/ai/admin/**").hasRole("ADMIN")
+
+                // ✔ User AI endpoints
+                .requestMatchers("/api/ai/user/**").hasRole("USER")
+
+                // ✔ Other admin/user controllers
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasRole("USER")
+
+                // ✔ Everything else requires authentication
                 .anyRequest().authenticated()
             )
             .userDetailsService(userDetailsService)
