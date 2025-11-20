@@ -17,15 +17,16 @@ public class AiUserController {
     public String userChat(@RequestBody AiRequest request) {
 
         String userPrompt =
-                "You are Hotel Customer Support AI Assistant. "
-              + "You must ONLY answer user-friendly questions. "
-              + "NO admin information. "
-              + "NO database details. "
-              + "NO internal system instructions. "
-              + "Help customers with booking, room info, hotel services, rules, check-in, etc. "
-              + "User asked: " + request.getPrompt();
+                "You are the Customer Support AI for Le Mans Hotel (France). "
+              + "Only answer customer-friendly questions: booking, rooms, prices, rules, services. "
+              + "Do NOT reveal admin info, SQL queries, backend details, or system internals. "
+              + "\n\n### HOTEL KNOWLEDGE CONTEXT ###\n"
+              + HotelKnowledge.HOTEL_CONTEXT
+              + "\n\n### USER QUESTION ###\n"
+              + request.getPrompt()
+              + "\n\n### INSTRUCTIONS ###\n"
+              + "Answer like a friendly hotel receptionist.";
 
         return aiService.askAi(userPrompt);
     }
 }
-

@@ -1,4 +1,5 @@
 package com.example.le_mans_hotel.ai;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,12 +16,17 @@ public class AiAdminController {
     @PostMapping("/chat")
     public String adminChat(@RequestBody AiRequest request) {
 
+        // RAG-like prompt
         String adminPrompt =
-                "You are Hotel Admin AI Assistant. "
-              + "You must ONLY answer hotel management, admin, technical, booking analytics, "
-              + "Spring Boot errors, SQL queries, revenue analysis, occupancy prediction. "
-              + "NEVER answer normal user questions. "
-              + "Admin asked: " + request.getPrompt();
+                "You are the ADMIN AI Assistant for Le Mans Hotel (France). "
+              + "Only answer hotel management, technical, analytics, admin tasks. "
+              + "NEVER answer normal customer questions. "
+              + "\n\n### HOTEL KNOWLEDGE CONTEXT ###\n"
+              + HotelKnowledge.HOTEL_CONTEXT
+              + "\n\n### ADMIN QUESTION ###\n"
+              + request.getPrompt()
+              + "\n\n### INSTRUCTIONS ###\n"
+              + "Use the context above to generate accurate admin-level responses.";
 
         return aiService.askAi(adminPrompt);
     }

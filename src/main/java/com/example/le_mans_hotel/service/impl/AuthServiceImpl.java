@@ -21,7 +21,6 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     
-    
     @Override
     public User registerUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
