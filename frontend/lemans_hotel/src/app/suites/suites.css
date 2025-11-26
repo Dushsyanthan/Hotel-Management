@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,600&display=swap');
+
+:host {
+    display: block;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+.suites-container {
+    min-height: 100vh;
+    background: #f9fafb;
+}
+
+.page-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 100px 40px;
+    text-align: center;
+}
+
+.header-content h1 {
+    font-family: 'Lora', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+}
+
+.header-content p {
+    font-size: 18px;
+    color: #d1d5db;
+    margin: 0;
+}
+
+.intro-section {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 0 40px;
+    text-align: center;
+}
+
+.intro-content h2 {
+    font-family: 'Lora', serif;
+    font-size: 36px;
+    color: #1a1a1a;
+    margin: 0 0 20px 0;
+}
+
+.intro-content p {
+    font-size: 18px;
+    color: #6b7280;
+    line-height: 1.8;
+}
+
+.suites-grid {
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+}
+
+.suite-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 32px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s;
+}
+
+.suite-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.suite-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.suite-header h3 {
+    font-family: 'Lora', serif;
+    font-size: 24px;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.suite-size {
+    background: #f3f4f6;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.suite-description {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+}
+
+.suite-features h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.suite-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+}
+
+.suite-features li {
+    font-size: 14px;
+    color: #6b7280;
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.suite-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+}
+
+.book-btn {
+    width: 100%;
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.book-btn:hover {
+    background: #000000;
+}
+
+.amenities-section {
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    padding: 60px 40px;
+    background: #ffffff;
+    border-radius: 16px;
+}
+
+.amenities-section h2 {
+    font-family: 'Lora', serif;
+    font-size: 36px;
+    color: #1a1a1a;
+    text-align: center;
+    margin: 0 0 48px 0;
+}
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+}
+
+.amenity-item {
+    text-align: center;
+}
+
+.amenity-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.amenity-item h4 {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+}
+
+.amenity-item p {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.back-link {
+    text-align: center;
+    padding: 0 0 60px 0;
+}
+
+.back-link a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        padding: 60px 20px;
+    }
+
+    .header-content h1 {
+        font-size: 36px;
+    }
+
+    .intro-section {
+        margin: 60px auto;
+        padding: 0 20px;
+    }
+
+    .suites-grid {
+        padding: 0 20px;
+        grid-template-columns: 1fr;
+    }
+}
