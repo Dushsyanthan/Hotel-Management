@@ -9,5 +9,5 @@ public class BookingRequest {
     private Long dishId;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
-    private Integer noOfPeron;
+    private Integer noOfPerson;
 }

@@ -1,0 +1,30 @@
+Dish Query
+============
+
+INSERT INTO dishes (cuisine_name, description, price_per_person) VALUES
+('French', 'Classic French haute cuisine in an elegant setting.', 150),
+('Italian', 'Authentic Italian flavors with a modern twist.', 120),
+('Japanese', 'Traditional sushi and kaiseki dining experience.', 180),
+('Indian', 'A culinary journey through the rich flavors of India.', 100),
+('Chinese', 'Exquisite Cantonese and Szechuan dishes.', 110);
+
+
+
+Room Query
+============
+
+INSERT INTO rooms (available, description, image_url, price, room_type) VALUES
+(b'1', 'Modern luxury deluxe room with elegant interior.', 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1200&fit=crop', 279.99, 'Deluxe Room'),
+(b'1', 'Spacious hotel room with contemporary décor and cozy bed.', 'https://images.unsplash.com/photo-1618220292143-1e0ec3c1f93b?w=1200&fit=crop', 329.99, 'Premier Room'),
+(b'1', 'Luxury suite with stylish furnishings and bright lighting.', 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&fit=crop', 399.99, 'Luxury Suite'),
+(b'1', 'Modern hotel room with ensuite bathroom and sleek design.', 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&fit=crop', 249.99, 'Standard Room'),
+(b'1', 'Upscale suite with elegant interior and city-view window.', 'https://images.unsplash.com/photo-1617104678098-fc02425f1f6e?w=1200&fit=crop', 359.99, 'Executive Suite'),
+(b'1', 'Contemporary room with chic décor and comfortable amenities.', 'https://www.pexels.com/photo/luxury-hotel-room-with-modern-interior-design-34672504.jpg', 289.99, 'Modern Room'),
+(b'1', 'Stylish hotel room with modern decor and plush bedding.', 'https://www.pexels.com/photo/luxury-hotel-room-with-modern-decor-33259514.jpg', 319.99, 'Premium Room'),
+(b'1', 'Well-furnished luxury room with warm lighting and comfortable bed.', 'https://pixabay.com/photos/room-hotel-luxury-bed-furniture-4656344/', 269.99, 'Comfort Room'),
+(b'1', 'Elegant room with modern furniture and relaxing ambiance.', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&fit=crop', 399.99, 'Suite Room'),
+(b'1', 'Cozy modern hotel room with minimalist design and comfort.', 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1200&fit=crop', 239.99, 'Budget Luxury Room'),
+(b'1', 'Comfortable room with modern styling and good amenities.', 'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1200&fit=crop', 279.99, 'Standard Luxury Room'),
+(b'1', 'High-end suite with luxury décor and premium finishes.', 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&fit=crop', 449.99, 'Premium Suite');
+
+

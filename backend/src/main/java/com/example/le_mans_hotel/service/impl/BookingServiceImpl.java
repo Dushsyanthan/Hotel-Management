@@ -70,7 +70,7 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(() -> new ResourceNotFoundException("Dish not found with ID: " + request.getDishId()));
 
         // Calculate total cost
-        double totalCost = dish.getPricePerPerson() * request.getNoOfPeron();
+        double totalCost = dish.getPricePerPerson() * request.getNoOfPerson();
 
         Booking booking = Booking.builder()
                 .user(user)
@@ -79,6 +79,7 @@ public class BookingServiceImpl implements BookingService {
                 .checkInDate(request.getCheckInDate())
                 .checkOutDate(request.getCheckOutDate())
                 .bookingStatus(BookingStatus.CONFIRMED)
+                .noOfPerson(request.getNoOfPerson())
                 .totalCost(totalCost + room.getPrice())
                 .build();
 

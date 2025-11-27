@@ -73,6 +73,5 @@ export class CuisineSelectionModal {
 
     selectCuisine(cuisine: Cuisine) {
         this.cuisineSelected.emit(cuisine);
-        this.close();
     }
 }

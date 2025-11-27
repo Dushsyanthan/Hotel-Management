@@ -9,7 +9,7 @@ import { CuisineSelectionModal, Cuisine } from '../cuisine-selection-modal/cuisi
 @Component({
     selector: 'app-rooms',
     standalone: true,
-    imports: [CommonModule, RouterLink, BookingModal, CuisineSelectionModal],
+    imports: [CommonModule, BookingModal, CuisineSelectionModal],
     templateUrl: './rooms.html',
     styleUrl: './rooms.css'
 })

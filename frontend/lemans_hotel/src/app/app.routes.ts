@@ -44,5 +44,10 @@ export const routes: Routes = [
     {
         path: 'admin',
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    },
+    {
+        path: 'my-bookings',
+        loadComponent: () => import('./my-bookings/my-bookings').then(m => m.MyBookings),
+        canActivate: [authGuard]
     }
 ];

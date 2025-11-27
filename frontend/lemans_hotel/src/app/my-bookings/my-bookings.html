@@ -1,7 +1,7 @@
 <div class="bookings-container">
     <header class="page-header">
         <div class="header-content">
-            <h1>My Bookings</h1>
+            <h1>MY BOOKINGS</h1>
             <p>View and manage your reservations</p>
         </div>
     </header>
@@ -42,21 +42,65 @@
                         {{ booking.bookingStatus }}
                     </span>
                 </div>
+
                 <div class="booking-details">
+                    @if (booking.room) {
                     <div class="detail-row">
+                        <span class="icon">🏨</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Room</span>
+                            <span class="detail-value">{{ booking.room.roomType }}</span>
+                        </div>
+                    </div>
+                    }
+
+                    @if (booking.dish) {
+                    <div class="detail-row">
+                        <span class="icon">🍽️</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Cuisine</span>
+                            <span class="detail-value">{{ booking.dish.cuisineName }}</span>
+                        </div>
+                    </div>
+                    }
+
+                    <div class="detail-row">
+                        <span class="icon">📅</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Check-in</span>
+                            <span class="detail-value">{{ booking.checkInDate }}</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="icon">📅</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Check-out</span>
+                            <span class="detail-value">{{ booking.checkOutDate }}</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="icon">👥</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Guests</span>
+                            <span class="detail-value">{{ booking.noOfPerson }} {{ booking.noOfPerson === 1 ? 'Person' :
+                                'Persons' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-row total-cost">
                         <span class="icon">💰</span>
                         <div class="detail-info">
                             <span class="detail-label">Total Cost</span>
                             <span class="detail-value">${{ booking.totalCost }}</span>
                         </div>
                     </div>
-                    @if (booking.message) {
-                    <div class="booking-message">
-                        <span class="icon">📝</span>
-                        <p>{{ booking.message }}</p>
-                    </div>
-                    }
                 </div>
+
+                <button (click)="downloadPDF(booking)" class="download-btn">
+                    <span class="icon">📥</span> Download Receipt
+                </button>
             </div>
             }
         </div>

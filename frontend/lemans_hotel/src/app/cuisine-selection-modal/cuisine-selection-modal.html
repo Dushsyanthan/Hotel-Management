@@ -10,10 +10,7 @@
             @for (cuisine of cuisines; track cuisine.id) {
             <div class="cuisine-card" (click)="selectCuisine(cuisine)">
                 <div class="cuisine-image">
-                    <img [src]="'assets/' + cuisine.image" [alt]="cuisine.name + ' Cuisine'">
-                    <div class="cuisine-overlay">
-                        <span class="select-text">Select</span>
-                    </div>
+                    <img [src]="'/assets/' + cuisine.image" [alt]="cuisine.name + ' Cuisine'">
                 </div>
                 <div class="cuisine-info">
                     <h3>{{ cuisine.restaurant }}</h3>
