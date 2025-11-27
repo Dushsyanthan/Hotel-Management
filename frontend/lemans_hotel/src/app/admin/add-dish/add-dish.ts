@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-add-dish',
@@ -11,20 +12,27 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './add-dish.css',
 })
 export class AddDish {
-  dish = {
-    cuisine: 'French',
-    name: '',
-    price: null,
+  cuisine = {
+    cuisineName: '',
+    pricePerPerson: null,
     description: '',
-    image: ''
+    image: '' // Now stores URL
   };
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private adminService: AdminService) { }
 
   onSubmit() {
-    console.log('Adding dish:', this.dish);
-    // Call service to add dish
-    alert('Dish added successfully!');
-    this.router.navigate(['/admin/dashboard']);
+    console.log('Adding cuisine:', this.cuisine);
+    this.adminService.addCuisine(this.cuisine).subscribe({
+      next: (response) => {
+        console.log('Cuisine added successfully', response);
+        alert('Cuisine added successfully!');
+        this.router.navigate(['/admin/dashboard']);
+      },
+      error: (error) => {
+        console.error('Error adding cuisine', error);
+        alert('Failed to add cuisine. Please try again.');
+      }
+    });
   }
 }

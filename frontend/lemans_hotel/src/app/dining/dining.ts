@@ -1,6 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { BookingService } from '../services/booking.service';
+
+interface Cuisine {
+    id: number;
+    name: string;
+    restaurant: string;
+    description: string;
+    image: string;
+    specialties: string[];
+}
 
 @Component({
     selector: 'app-dining',
@@ -10,8 +20,9 @@ import { RouterLink } from '@angular/router';
     styleUrl: './dining.css'
 })
 export class Dining {
-    cuisines = [
+    cuisines: Cuisine[] = [
         {
+            id: 1,
             name: 'French',
             restaurant: 'Le Petit Palais',
             description: 'Classic French haute cuisine in an elegant setting.',
@@ -19,6 +30,7 @@ export class Dining {
             specialties: ['Coq au Vin', 'Bouillabaisse', 'Crème Brûlée', 'Escargots de Bourgogne', 'Ratatouille']
         },
         {
+            id: 2,
             name: 'Italian',
             restaurant: 'Bella Vista',
             description: 'Authentic Italian flavors with a modern twist.',
@@ -26,6 +38,7 @@ export class Dining {
             specialties: ['Osso Buco', 'Truffle Risotto', 'Tiramisu', 'Carbonara', 'Caprese Salad']
         },
         {
+            id: 3,
             name: 'Japanese',
             restaurant: 'Sakura Zen',
             description: 'Traditional sushi and kaiseki dining experience.',
@@ -33,6 +46,7 @@ export class Dining {
             specialties: ['Omakase Sushi', 'Wagyu Beef', 'Matcha Desserts', 'Tempura', 'Ramen']
         },
         {
+            id: 4,
             name: 'Indian',
             restaurant: 'The Spice Route',
             description: 'A culinary journey through the rich flavors of India.',
@@ -40,6 +54,7 @@ export class Dining {
             specialties: ['Butter Chicken', 'Lamb Rogan Josh', 'Biryani', 'Palak Paneer', 'Tandoori Chicken']
         },
         {
+            id: 5,
             name: 'Chinese',
             restaurant: 'Golden Dragon',
             description: 'Exquisite Cantonese and Szechuan dishes.',
@@ -47,4 +62,10 @@ export class Dining {
             specialties: ['Peking Duck', 'Dim Sum', 'Kung Pao Chicken', 'Mapo Tofu', 'Spring Rolls']
         }
     ];
+
+    constructor(private bookingService: BookingService) { }
+
+    getImageUrl(image: string): string {
+        return 'assets/' + image;
+    }
 }

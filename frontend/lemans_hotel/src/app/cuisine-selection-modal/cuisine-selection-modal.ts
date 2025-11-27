@@ -66,6 +66,14 @@ export class CuisineSelectionModal {
         }
     ];
 
+    constructor() { }
+
+    ngOnInit() { }
+
+    getImageUrl(image: string): string {
+        return 'assets/' + image;
+    }
+
     close() {
         this.isOpen = false;
         this.closeModal.emit();

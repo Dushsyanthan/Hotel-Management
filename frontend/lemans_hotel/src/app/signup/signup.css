@@ -13,9 +13,10 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/luxury_palace_bg.png');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('/assets/luxury_login_bg.png');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     padding: 20px;
     position: relative;
 }
@@ -143,6 +144,7 @@
     font-size: 13px;
     margin-top: 6px;
     font-weight: 400;
+    margin-bottom: 0;
 }
 
 .submit-btn {

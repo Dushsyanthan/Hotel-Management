@@ -12,7 +12,7 @@ export interface AuthResponse {
     providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = 'http://localhost:8080/auth';
+    private apiUrl = '/auth';
 
     constructor(private http: HttpClient) { }
 
@@ -38,5 +38,13 @@ export class AuthService {
 
     isLoggedIn(): boolean {
         return !!localStorage.getItem('token');
+    }
+
+    getRole(): string | null {
+        const user = localStorage.getItem('user');
+        if (user) {
+            return JSON.parse(user).role;
+        }
+        return null;
     }
 }

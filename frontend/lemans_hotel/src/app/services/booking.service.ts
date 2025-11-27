@@ -37,7 +37,8 @@ export interface BookingResponse {
     providedIn: 'root'
 })
 export class BookingService {
-    private apiUrl = 'http://localhost:8080/user/bookings';
+    private apiUrl = '/user/bookings';
+    private adminUrl = '/admin/bookings';
 
     constructor(private http: HttpClient) { }
 
@@ -47,5 +48,18 @@ export class BookingService {
 
     getUserBookings(): Observable<BookingResponse[]> {
         return this.http.get<BookingResponse[]>(this.apiUrl);
+    }
+
+    // Admin Methods
+    getAllBookings(): Observable<BookingResponse[]> {
+        return this.http.get<BookingResponse[]>(this.adminUrl);
+    }
+
+    updateBookingStatus(bookingId: number, status: string): Observable<BookingResponse> {
+        return this.http.put<BookingResponse>(`${this.adminUrl}/${bookingId}/${status}`, {});
+    }
+
+    getAllCuisines(): Observable<any[]> {
+        return this.http.get<any[]>('/user/dishes');
     }
 }

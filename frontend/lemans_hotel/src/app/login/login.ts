@@ -34,7 +34,11 @@ export class Login {
             this.authService.login(email, password).subscribe({
                 next: (response) => {
                     console.log('Login successful', response);
-                    this.router.navigate(['/home']);
+                    if (response.role === 'ADMIN') {
+                        this.router.navigate(['/admin/dashboard']);
+                    } else {
+                        this.router.navigate(['/home']);
+                    }
                 },
                 error: (err) => {
                     console.error('Login failed', err);

@@ -15,7 +15,7 @@ export interface AIResponse {
     providedIn: 'root'
 })
 export class AiService {
-    private apiUrl = 'http://localhost:8080/api/ai';
+    private apiUrl = '/api/ai';
 
     constructor(private http: HttpClient) { }
 

@@ -18,7 +18,7 @@
         @for (cuisine of cuisines; track cuisine.name) {
         <div class="cuisine-card">
             <div class="cuisine-image">
-                <img [src]="'/assets/' + cuisine.image" [alt]="cuisine.name + ' Cuisine'">
+                <img [src]="getImageUrl(cuisine.image)" [alt]="cuisine.name + ' Cuisine'">
                 <div class="cuisine-overlay">
                     <div class="cuisine-specialties">
                         <h4>Signature Dishes</h4>

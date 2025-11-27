@@ -8,7 +8,7 @@
             <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
             <a routerLink="/admin/add-room" routerLinkActive="active">Add Room</a>
             <a routerLink="/admin/add-offer" routerLinkActive="active">Add Offer</a>
-            <a routerLink="/admin/add-dish" routerLinkActive="active">Add Dish</a>
+            <a routerLink="/admin/add-dish" routerLinkActive="active">Add Cuisine</a>
             <a (click)="logout()" class="logout-btn">Logout</a>
         </nav>
     </aside>
@@ -17,21 +17,87 @@
             <h1>Welcome, Admin</h1>
             <p>Manage your hotel's premium offerings.</p>
         </header>
-        <div class="dashboard-cards">
-            <div class="card" routerLink="/admin/add-room">
-                <div class="card-icon">🛏️</div>
-                <h3>Manage Rooms</h3>
-                <p>Add new suites and rooms.</p>
+        <div class="analytics-grid">
+            <div class="stat-card revenue">
+                <div class="stat-icon">💰</div>
+                <div class="stat-info">
+                    <h3>Total Revenue</h3>
+                    <p>${{ totalRevenue | number:'1.2-2' }}</p>
+                </div>
             </div>
-            <div class="card" routerLink="/admin/add-offer">
-                <div class="card-icon">🏷️</div>
-                <h3>Manage Offers</h3>
-                <p>Create special promotions.</p>
+            <div class="stat-card bookings">
+                <div class="stat-icon">📅</div>
+                <div class="stat-info">
+                    <h3>Total Bookings</h3>
+                    <p>{{ totalBookings }}</p>
+                </div>
             </div>
-            <div class="card" routerLink="/admin/add-dish">
-                <div class="card-icon">🍽️</div>
-                <h3>Manage Dining</h3>
-                <p>Update cuisine menus.</p>
+            <div class="stat-card active">
+                <div class="stat-icon">🏨</div>
+                <div class="stat-info">
+                    <h3>Active Bookings</h3>
+                    <p>{{ activeBookings }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Quick Actions</h2>
+            </div>
+            <div class="dashboard-cards">
+                <div class="card" routerLink="/admin/add-room">
+                    <div class="card-icon">🛏️</div>
+                    <h3>Manage Rooms</h3>
+                    <p>Add new suites and rooms.</p>
+                </div>
+                <div class="card" routerLink="/admin/add-offer">
+                    <div class="card-icon">🏷️</div>
+                    <h3>Manage Offers</h3>
+                    <p>Create special promotions.</p>
+                </div>
+                <!-- Add Cuisine removed as per request -->
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Recent Bookings</h2>
+                <a routerLink="/admin/bookings" class="view-all-btn">View All Bookings →</a>
+            </div>
+
+            <div class="recent-bookings-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Guest</th>
+                            <th>Room</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (booking of recentBookings; track booking.id) {
+                        <tr>
+                            <td>#{{ booking.id }}</td>
+                            <td>{{ booking.noOfPerson }} Guests</td>
+                            <td>{{ booking.room?.roomType || 'N/A' }}</td>
+                            <td>
+                                <span class="status-badge" [class]="booking.bookingStatus.toLowerCase()">
+                                    {{ booking.bookingStatus }}
+                                </span>
+                            </td>
+                            <td>${{ booking.totalCost }}</td>
+                        </tr>
+                        }
+                        @if (recentBookings.length === 0) {
+                        <tr>
+                            <td colspan="5" class="no-data">No recent bookings found.</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>

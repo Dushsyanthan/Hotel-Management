@@ -11,7 +11,11 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  constructor(private authService: AuthService, private router: Router) { }
+  isAdmin = false;
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.isAdmin = this.authService.getRole() === 'ADMIN';
+  }
 
   logout() {
     this.authService.logout();

@@ -6,5 +6,4 @@ import lombok.Data;
 public class OfferDTO {
     private String title;
     private String description;
-    private double discountPercentage;
 }
