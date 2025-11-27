@@ -59,7 +59,8 @@
               "buildTarget": "lemans_hotel:build:production"
             },
             "development": {
-              "buildTarget": "lemans_hotel:build:development"
+              "buildTarget": "lemans_hotel:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { RoomService } from '../services/room.service';
 import { Room } from '../models/room.model';
+import { BookingModal } from '../booking-modal/booking-modal';
+import { CuisineSelectionModal, Cuisine } from '../cuisine-selection-modal/cuisine-selection-modal';
 
 @Component({
     selector: 'app-rooms',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, BookingModal, CuisineSelectionModal],
     templateUrl: './rooms.html',
     styleUrl: './rooms.css'
 })
@@ -16,6 +18,12 @@ export class Rooms implements OnInit {
     loading = true;
     errorMessage = '';
     debugInfo = '';
+
+    // Two-step booking flow state
+    showCuisineModal = false;
+    showBookingModal = false;
+    selectedRoomId: number | null = null;
+    selectedCuisine: Cuisine | null = null;
 
     constructor(private roomService: RoomService) { }
 
@@ -61,8 +69,32 @@ export class Rooms implements OnInit {
         });
     }
 
+    // Step 1: User clicks "Book Now" on a room
     bookRoom(roomId: number) {
-        console.log('Booking room:', roomId);
-        // TODO: Implement booking functionality
+        this.selectedRoomId = roomId;
+        this.showCuisineModal = true;
+    }
+
+    // Step 2: User selects a cuisine
+    onCuisineSelected(cuisine: Cuisine) {
+        this.selectedCuisine = cuisine;
+        this.showCuisineModal = false;
+        this.showBookingModal = true;
+    }
+
+    closeCuisineModal() {
+        this.showCuisineModal = false;
+        this.selectedRoomId = null;
+    }
+
+    closeBookingModal() {
+        this.showBookingModal = false;
+        this.selectedRoomId = null;
+        this.selectedCuisine = null;
+    }
+
+    onBookingSuccess() {
+        console.log('Booking successful!');
+        // Optionally refresh rooms or show success message
     }
 }

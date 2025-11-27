@@ -1,0 +1,38 @@
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Le Mans</h2>
+            <p>Admin Panel</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+            <a routerLink="/admin/add-room" routerLinkActive="active">Add Room</a>
+            <a routerLink="/admin/add-offer" routerLinkActive="active">Add Offer</a>
+            <a routerLink="/admin/add-dish" routerLinkActive="active">Add Dish</a>
+            <a (click)="logout()" class="logout-btn">Logout</a>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <header class="dashboard-header">
+            <h1>Welcome, Admin</h1>
+            <p>Manage your hotel's premium offerings.</p>
+        </header>
+        <div class="dashboard-cards">
+            <div class="card" routerLink="/admin/add-room">
+                <div class="card-icon">🛏️</div>
+                <h3>Manage Rooms</h3>
+                <p>Add new suites and rooms.</p>
+            </div>
+            <div class="card" routerLink="/admin/add-offer">
+                <div class="card-icon">🏷️</div>
+                <h3>Manage Offers</h3>
+                <p>Create special promotions.</p>
+            </div>
+            <div class="card" routerLink="/admin/add-dish">
+                <div class="card-icon">🍽️</div>
+                <h3>Manage Dining</h3>
+                <p>Update cuisine menus.</p>
+            </div>
+        </div>
+    </main>
+</div>

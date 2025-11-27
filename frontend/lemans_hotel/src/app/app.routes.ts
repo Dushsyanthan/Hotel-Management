@@ -18,11 +18,31 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'suites',
+        loadComponent: () => import('./suites/suites').then(m => m.Suites)
+    },
+    {
+        path: 'dining',
+        loadComponent: () => import('./dining/dining').then(m => m.Dining)
+    },
+    {
+        path: 'history',
+        loadComponent: () => import('./history/history').then(m => m.History)
+    },
+    {
+        path: 'premium-services',
+        loadComponent: () => import('./premium-services/premium-services').then(m => m.PremiumServices)
+    },
+    {
         path: 'login',
         loadComponent: () => import('./login/login').then(m => m.Login)
     },
     {
         path: 'signup',
         loadComponent: () => import('./signup/signup').then(m => m.Signup)
+    },
+    {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
     }
 ];

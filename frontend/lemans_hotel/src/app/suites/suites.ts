@@ -18,7 +18,7 @@ export class Suites {
             description: 'The epitome of luxury, featuring panoramic city views and bespoke furnishings.'
         },
         {
-            name: 'Royal Suite',
+            name: 'Signature Suite',
             size: '120 m²',
             features: ['King Bed', 'Dining Area', 'Spa Bathroom', 'Work Desk'],
             description: 'Elegant and spacious with modern amenities and classic sophistication.'

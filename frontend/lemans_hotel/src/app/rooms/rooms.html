@@ -57,4 +57,15 @@
         <p>Please check back later for available accommodations.</p>
     </div>
     }
+
+    <!-- Step 1: Cuisine Selection Modal -->
+    <app-cuisine-selection-modal [isOpen]="showCuisineModal" [roomId]="selectedRoomId"
+        (closeModal)="closeCuisineModal()" (cuisineSelected)="onCuisineSelected($event)">
+    </app-cuisine-selection-modal>
+
+    <!-- Step 2: Booking Modal -->
+    <app-booking-modal [isOpen]="showBookingModal" [roomId]="selectedRoomId" [dishId]="selectedCuisine?.id ?? null"
+        [cuisineName]="selectedCuisine?.name ?? ''" [bookingType]="'room'" (closeModal)="closeBookingModal()"
+        (bookingSuccess)="onBookingSuccess()">
+    </app-booking-modal>
 </div>

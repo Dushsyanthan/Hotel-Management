@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/rooms")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class AdminRoomController {
 

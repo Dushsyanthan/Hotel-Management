@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/ai/user")
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class AiUserController {
 
     private final AiService aiService;

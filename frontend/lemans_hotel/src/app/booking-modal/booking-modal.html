@@ -1,0 +1,34 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="close()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>{{ bookingType === 'room' ? 'Book Your Stay' : 'Reserve Dining Experience' }}</h2>
+            @if (cuisineName) {
+            <p class="selected-cuisine">Selected Cuisine: <strong>{{ cuisineName }}</strong></p>
+            }
+            <button class="close-btn" (click)="close()">✕</button>
+        </div>
+        <form (ngSubmit)="submitBooking()" class="booking-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="checkIn">Check-in Date</label>
+                    <input type="date" id="checkIn" [(ngModel)]="booking.checkInDate" name="checkIn" required
+                        [min]="minDate">
+                </div>
+                <div class="form-group">
+                    <label for="checkOut">Check-out Date</label>
+                    <input type="date" id="checkOut" [(ngModel)]="booking.checkOutDate" name="checkOut" required
+                        [min]="booking.checkInDate || minDate">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="persons">Number of Persons</label>
+                <input type="number" id="persons" [(ngModel)]="booking.noOfPerson" name="persons" required min="1"
+                    max="10">
+            </div>
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" (click)="close()">Cancel</button>
+                <button type="submit" class="submit-btn">Confirm Booking</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { BookingService, BookingRequest } from '../services/booking.service';
+
+@Component({
+  selector: 'app-booking-modal',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './booking-modal.html',
+  styleUrl: './booking-modal.css',
+})
+export class BookingModal {
+  @Input() isOpen = false;
+  @Input() roomId: number | null = null;
+  @Input() dishId: number | null = null;
+  @Input() cuisineName: string = '';
+  @Input() bookingType: 'room' | 'cuisine' = 'room';
+  @Output() closeModal = new EventEmitter<void>();
+  @Output() bookingSuccess = new EventEmitter<void>();
+
+  booking = {
+    checkInDate: '',
+    checkOutDate: '',
+    noOfPerson: 1
+  };
+
+  minDate = new Date().toISOString().split('T')[0];
+
+  constructor(private bookingService: BookingService) { }
+
+  close() {
+    this.isOpen = false;
+    this.closeModal.emit();
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.booking = {
+      checkInDate: '',
+      checkOutDate: '',
+      noOfPerson: 1
+    };
+  }
+
+  submitBooking() {
+    if (!this.roomId || !this.dishId) {
+      alert('Missing booking information. Please try again.');
+      return;
+    }
+
+    const bookingRequest: BookingRequest = {
+      roomId: this.roomId,
+      dishId: this.dishId,
+      checkInDate: this.booking.checkInDate,
+      checkOutDate: this.booking.checkOutDate,
+      noOfPerson: this.booking.noOfPerson
+    };
+
+    this.bookingService.createBooking(bookingRequest).subscribe({
+      next: (response) => {
+        alert(`Booking confirmed! Total cost: $${response.totalCost}`);
+        this.bookingSuccess.emit();
+        this.close();
+      },
+      error: (err) => {
+        console.error('Booking error:', err);
+        alert('Booking failed. Please try again or contact support.');
+      }
+    });
+  }
+}

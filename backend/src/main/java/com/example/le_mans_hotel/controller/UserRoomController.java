@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user/rooms")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class UserRoomController {
 

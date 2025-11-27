@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user/dishes")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class UserDishController {
 
