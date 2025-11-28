@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { BookingService, BookingResponse } from '../../services/booking.service';
+import { AdminService } from '../../services/admin.service';
+import { PopupService } from '../../popup/popup.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,16 +18,20 @@ export class Dashboard implements OnInit {
   totalRevenue = 0;
   activeBookings = 0;
   recentBookings: BookingResponse[] = [];
+  offers: any[] = [];
   loading = true;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private adminService: AdminService,
+    private popupService: PopupService
   ) { }
 
   ngOnInit() {
     this.loadDashboardData();
+    this.loadOffers();
   }
 
   loadDashboardData() {
@@ -41,6 +47,34 @@ export class Dashboard implements OnInit {
       error: (err) => {
         console.error('Error loading dashboard data:', err);
         this.loading = false;
+      }
+    });
+  }
+
+  loadOffers() {
+    this.adminService.getAllOffers().subscribe({
+      next: (data) => {
+        this.offers = data;
+      },
+      error: (err) => {
+        console.error('Error loading offers:', err);
+      }
+    });
+  }
+
+  cancelBooking(bookingId: number) {
+    this.popupService.confirm('Are you sure you want to cancel this booking?', 'Cancel Booking').subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.bookingService.updateBookingStatus(bookingId, 'CANCELLED').subscribe({
+          next: () => {
+            this.popupService.showSuccess('Booking cancelled successfully');
+            this.loadDashboardData();
+          },
+          error: (err) => {
+            console.error('Error cancelling booking:', err);
+            this.popupService.showError('Failed to cancel booking');
+          }
+        });
       }
     });
   }

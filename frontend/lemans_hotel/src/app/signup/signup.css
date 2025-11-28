@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('/assets/luxury_login_bg.png');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('/assets/luxury_login_bg.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -22,8 +22,7 @@
 }
 
 .signup-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 16px;
     padding: 48px 40px;
@@ -51,7 +50,7 @@
 }
 
 .signup-header h1 {
-    color: #2c3e50;
+    color: #d5e298;
     font-family: 'Playfair Display', serif;
     font-size: 32px;
     font-weight: 600;
@@ -60,7 +59,7 @@
 }
 
 .signup-header p {
-    color: #c0a062;
+    color: #c0b2a5;
     font-size: 15px;
     margin: 0;
     font-weight: 400;
@@ -68,13 +67,15 @@
     letter-spacing: 1px;
 }
 
+
+
 .form-group {
     margin-bottom: 18px;
 }
 
 .form-group label {
     display: block;
-    color: #374151;
+    color: #e5e7e9;
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 8px;
@@ -83,10 +84,10 @@
 .form-group input {
     width: 100%;
     padding: 12px 16px;
-    background: #f9fafb;
+
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    color: #1a1a1a;
+    border-radius: 20px;
+    color: #0b0b0b;
     font-size: 15px;
     font-family: 'Inter', sans-serif;
     transition: all 0.2s;
@@ -150,10 +151,10 @@
 .submit-btn {
     width: 100%;
     padding: 14px;
-    background: #2c3e50;
+    background: #716262;
     color: #ffffff;
     border: none;
-    border-radius: 8px;
+    border-radius: 20px;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -164,7 +165,7 @@
 }
 
 .submit-btn:hover:not(:disabled) {
-    background: #1a252f;
+    background: #514747;
     transform: translateY(-1px);
     box-shadow: 0 8px 20px rgba(44, 62, 80, 0.3);
 }
@@ -172,13 +173,13 @@
 .submit-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    background: #9ca3af;
+    background: #080909;
 }
 
 .login-link {
     text-align: center;
     margin-top: 24px;
-    color: #6b7280;
+    color: #f0f1f4;
     font-size: 14px;
 }
 

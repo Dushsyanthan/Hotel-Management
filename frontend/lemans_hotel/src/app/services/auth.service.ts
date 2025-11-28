@@ -28,7 +28,7 @@ export class AuthService {
     }
 
     register(username: string, email: string, password: string): Observable<any> {
-        return this.http.post(`${this.apiUrl}/register`, { username, email, password });
+        return this.http.post(`${this.apiUrl}/register`, { username, email, password }, { responseType: 'text' });
     }
 
     logout() {
@@ -46,5 +46,13 @@ export class AuthService {
             return JSON.parse(user).role;
         }
         return null;
+    }
+
+    forgotPassword(email: string): Observable<any> {
+        return this.http.post(`${this.apiUrl}/forgotPassword`, { email }, { responseType: 'text' });
+    }
+
+    verifyOtp(email: string, otp: string, newPassword: string): Observable<any> {
+        return this.http.post(`${this.apiUrl}/verifyOtp`, { email, otp, newPassword }, { responseType: 'text' });
     }
 }

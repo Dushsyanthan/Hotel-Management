@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { BookingService } from '../services/booking.service';
 
 interface Cuisine {
@@ -20,6 +20,13 @@ interface Cuisine {
     styleUrl: './dining.css'
 })
 export class Dining {
+    constructor(private bookingService: BookingService, private router: Router) { }
+
+    logout() {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+    }
+
     cuisines: Cuisine[] = [
         {
             id: 1,
@@ -62,8 +69,6 @@ export class Dining {
             specialties: ['Peking Duck', 'Dim Sum', 'Kung Pao Chicken', 'Mapo Tofu', 'Spring Rolls']
         }
     ];
-
-    constructor(private bookingService: BookingService) { }
 
     getImageUrl(image: string): string {
         return 'assets/' + image;

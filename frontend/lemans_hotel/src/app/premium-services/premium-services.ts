@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-premium-services',
@@ -10,6 +10,13 @@ import { RouterLink } from '@angular/router';
     styleUrl: './premium-services.css'
 })
 export class PremiumServices {
+    constructor(private router: Router) { }
+
+    logout() {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+    }
+
     services = [
         {
             title: 'Private Concierge',

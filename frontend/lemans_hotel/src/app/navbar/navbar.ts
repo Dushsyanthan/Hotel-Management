@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -10,11 +11,27 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class Navbar {
+export class Navbar implements OnInit {
   isAdmin = false;
+  showNavbar = true;
 
   constructor(private authService: AuthService, private router: Router) {
     this.isAdmin = this.authService.getRole() === 'ADMIN';
+  }
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      this.checkVisibility(event.url);
+    });
+    // Initial check
+    this.checkVisibility(this.router.url);
+  }
+
+  checkVisibility(url: string) {
+    // Hide navbar on login, signup, forgot-password, and admin pages
+    this.showNavbar = !url.includes('/login') && !url.includes('/signup') && !url.includes('/forgot-password') && !url.includes('/admin');
   }
 
   logout() {

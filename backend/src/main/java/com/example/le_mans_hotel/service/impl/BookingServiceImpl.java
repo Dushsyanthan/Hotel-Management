@@ -11,6 +11,7 @@ import com.example.le_mans_hotel.dto.BookingRequest;
 import com.example.le_mans_hotel.dto.BookingResponse;
 import com.example.le_mans_hotel.dto.DtoMapper;
 import com.example.le_mans_hotel.exception.ResourceNotFoundException;
+import com.example.le_mans_hotel.exception.RoomNotAvailableException;
 import com.example.le_mans_hotel.model.Booking;
 import com.example.le_mans_hotel.model.BookingStatus;
 import com.example.le_mans_hotel.model.Dish;
@@ -60,14 +61,37 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingResponse createBooking(BookingRequest request, String userEmail) {
+
         User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + userEmail));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User not found with email: " + userEmail));
 
         Room room = roomRepository.findById(request.getRoomId())
-                .orElseThrow(() -> new ResourceNotFoundException("Room not found with ID: " + request.getRoomId()));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Room not found with ID: " + request.getRoomId()));
 
         Dish dish = dishRepository.findById(request.getDishId())
-                .orElseThrow(() -> new ResourceNotFoundException("Dish not found with ID: " + request.getDishId()));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Dish not found with ID: " + request.getDishId()));
+        List<Booking> existingBookings = bookingRepository.findByRoomId(room.getId());
+
+        for (Booking b : existingBookings) {
+
+            // Allow booking if previous booking was cancelled
+            if (b.getBookingStatus() == BookingStatus.CANCELLED) {
+                continue;
+            }
+
+            boolean overlaps =
+                    !request.getCheckInDate().isAfter(b.getCheckOutDate()) &&
+                    !request.getCheckOutDate().isBefore(b.getCheckInDate());
+
+            if (overlaps) {
+                throw new RoomNotAvailableException(
+                        "Sorry, Room is not available for the selected dates");
+            }
+        }
+
 
         // Calculate total cost
         double totalCost = dish.getPricePerPerson() * request.getNoOfPerson();
@@ -86,6 +110,7 @@ public class BookingServiceImpl implements BookingService {
         Booking saved = bookingRepository.save(booking);
         return DtoMapper.toBookingResponse(saved);
     }
+
     
     @Override
     public Booking update(Long id,String status) {

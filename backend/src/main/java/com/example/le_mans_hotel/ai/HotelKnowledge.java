@@ -34,5 +34,8 @@ public class HotelKnowledge {
         - Common issues: overbooking, room availability sync
         - Tech stack: Spring Boot, MySQL, Redis cache
         - SQL samples for admin queries
+        
+        CONTACT:
+        - lemans.hotel.france@gmail.com
         """;
 }

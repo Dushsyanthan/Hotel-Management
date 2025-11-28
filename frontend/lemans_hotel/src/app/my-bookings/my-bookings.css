@@ -1,40 +1,68 @@
 /* ------------------------- */
-/*  PAGE BACKGROUND (Subtle Luxury Blue Gradient)
-    Clean, premium, hotel-style color scheme
+/*  PAGE HEADER
+/* ------------------------- */
+.page-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://images.unsplash.com/photo-1554224311-beee4ece8db7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    z-index: 0;
+}
+
+.header-content-page {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.header-content-page h1 {
+    font-size: 4.5rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    color: white;
+}
+
+.header-content-page p {
+    font-size: 1.125rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+/* ------------------------- */
+/*  PAGE BACKGROUND
 /* ------------------------- */
 .bookings-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #ffffff 0%, #f4f7fb 40%, #e6eff7 100%);
+    background: #ffffff;
     padding-bottom: 3rem;
     font-family: 'Segoe UI', sans-serif;
 }
-
-
-/* ------------------------- */
-/*  HEADER AREA WITH SOFT BLUE GLOW
-/* ------------------------- */
-.page-header {
-    background: linear-gradient(180deg, #ffffff 0%, #f4f8fd 60%, #ffffff 100%);
-    padding: 4rem 2rem 3rem;
-    text-align: center;
-    border-bottom: 1px solid #d7e3f3;
-}
-
-.header-content h1 {
-    color: #2b3e55;
-    /* Deep blue-grey for premium look */
-    font-size: 3rem;
-    margin: 0 0 0.5rem 0;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.header-content p {
-    color: #4a5f78;
-    font-size: 1.2rem;
-    margin: 0;
-}
-
 
 /* ------------------------- */
 /*  LOADING + ERROR STATES
@@ -53,8 +81,7 @@
     width: 50px;
     height: 50px;
     border: 4px solid rgba(0, 0, 0, 0.05);
-    border-top-color: #7aa6d9;
-    /* Soft blue spinner */
+    border-top-color: #1a1a1a;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -75,8 +102,7 @@
 .retry-btn {
     margin-top: 1rem;
     padding: 0.75rem 2rem;
-    background: #7aa6d9;
-    /* Blue retry button */
+    background: #1a1a1a;
     color: white;
     border: none;
     border-radius: 6px;
@@ -87,10 +113,9 @@
 }
 
 .retry-btn:hover {
-    background: #8cb7e6;
+    background: #333333;
     transform: translateY(-2px);
 }
-
 
 /* ------------------------- */
 /*  MAIN CONTENT GRID
@@ -100,7 +125,6 @@
     margin: 0 auto;
     padding: 3rem 2rem;
 }
-
 
 /* ------------------------- */
 /*  EMPTY STATE VIEW
@@ -115,7 +139,7 @@
 .empty-icon {
     font-size: 4.5rem;
     margin-bottom: 1rem;
-    color: #7aa6d9;
+    color: #1a1a1a;
 }
 
 .empty-state h2 {
@@ -133,7 +157,7 @@
 .explore-btn {
     display: inline-block;
     padding: 1rem 2.5rem;
-    background: #7aa6d9;
+    background: #1a1a1a;
     color: white;
     border-radius: 6px;
     text-decoration: none;
@@ -143,10 +167,9 @@
 }
 
 .explore-btn:hover {
-    background: #8cb7e6;
+    background: #333333;
     transform: translateY(-2px);
 }
-
 
 /* ------------------------- */
 /*  BOOKING GRID - CARD DESIGN
@@ -157,15 +180,12 @@
     gap: 2rem;
 }
 
-
 /* ------------------------- */
 /*  PREMIUM BOOKING CARD
 /* ------------------------- */
 .booking-card {
     background: rgba(255, 255, 255, 0.7);
-    /* Glassy white */
     backdrop-filter: blur(6px);
-    /* Smooth hotel-style blur */
     border-radius: 12px;
     padding: 2rem;
     border: 1px solid rgba(180, 200, 220, 0.3);
@@ -174,11 +194,9 @@
 
 .booking-card:hover {
     transform: translateY(-5px);
-    border-color: #8bb4dd;
-    box-shadow: 0 10px 25px rgba(140, 175, 210, 0.25);
-    /* Soft blue glow */
+    border-color: #1a1a1a;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
-
 
 .booking-header {
     display: flex;
@@ -235,7 +253,6 @@
     color: #9e9e9e;
 }
 
-
 /* ------------------------- */
 /*  DETAILS SECTION INSIDE CARD
 /* ------------------------- */
@@ -277,7 +294,6 @@
     color: #2b3e55;
 }
 
-
 /* ------------------------- */
 /*  TOTAL COST HIGHLIGHT
 /* ------------------------- */
@@ -288,10 +304,9 @@
 }
 
 .total-cost .detail-value {
-    color: #7aa6d9;
+    color: #1a1a1a;
     font-size: 1.4rem;
 }
-
 
 /* ------------------------- */
 /*  DOWNLOAD BUTTON
@@ -300,7 +315,7 @@
     width: 100%;
     margin-top: 1.5rem;
     padding: 0.75rem;
-    background: #7aa6d9;
+    background: #1a1a1a;
     border: none;
     color: white;
     font-size: 0.95rem;
@@ -315,14 +330,13 @@
 }
 
 .download-btn:hover {
-    background: #8cb7e6;
+    background: #333333;
     transform: translateY(-2px);
 }
 
 .download-btn .icon {
     font-size: 1.1rem;
 }
-
 
 /* ------------------------- */
 /*  BACK LINK
@@ -334,23 +348,22 @@
 }
 
 .back-link a {
-    color: #7aa6d9;
+    color: #1a1a1a;
     text-decoration: none;
     font-size: 1.1rem;
     transition: 0.3s ease;
 }
 
 .back-link a:hover {
-    color: #8cb7e6;
+    color: #333333;
 }
-
 
 /* ------------------------- */
 /*  RESPONSIVE DESIGN
 /* ------------------------- */
 @media (max-width: 768px) {
-    .header-content h1 {
-        font-size: 2rem;
+    .header-content-page h1 {
+        font-size: 2.5rem;
     }
 
     .bookings-grid {

@@ -1,36 +1,44 @@
+/* IMPORT FONTS + SHARED NAV BAR */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+@import '../shared/home-header.css';
+
+
+
+/* ------------------------------ */
+/*       DINING PAGE BASE         */
+/* ------------------------------ */
+
 .dining-container {
-    padding-top: 80px;
+    padding-top: 0px;
     min-height: 100vh;
     background-color: #f9f9f9;
+    font-family: 'Inter', sans-serif;
 }
 
+.page-header .header-content-page h1 {
+    color: white;
+    letter-spacing: 2px;
+    font-size: 40px;
+}
+
+.page-header .header-content-page p {
+    color: white;
+    opacity: 0.9;
+}
+
+/* ------------------------------ */
+/*   UNIFIED LUXURY PAGE HEADER   */
+/* ------------------------------ */
+
 .page-header {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
-    height: 400px;
+    height: 450px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    color: white;
-}
-
-.header-content h1 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.header-content p {
-    font-size: 1.5rem;
-    font-weight: 300;
-}
-
-.intro-section {
-    padding: 4rem 2rem;
-    text-align: center;
-    background-color: white;
 }
 
 .intro-content {
@@ -42,7 +50,7 @@
     font-size: 2.5rem;
     color: #2c3e50;
     margin-bottom: 1.5rem;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
 }
 
 .intro-content p {
@@ -50,6 +58,12 @@
     line-height: 1.8;
     color: #666;
 }
+
+
+
+/* ------------------------------ */
+/*     CUISINE GRID + CARDS       */
+/* ------------------------------ */
 
 .cuisines-grid {
     display: grid;
@@ -68,7 +82,6 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 0;
 }
 
 .cuisine-card:hover {
@@ -94,10 +107,7 @@
 
 .cuisine-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
@@ -120,19 +130,18 @@
     color: #c0a062;
     margin-bottom: 1rem;
     font-size: 1.2rem;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
 }
 
 .cuisine-specialties ul {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 .cuisine-specialties li {
-    color: white;
     padding: 0.25rem 0;
     font-size: 0.95rem;
+    color: white;
 }
 
 .cuisine-content {
@@ -152,7 +161,7 @@
     font-size: 1.8rem;
     color: #2c3e50;
     margin-bottom: 0.5rem;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
 }
 
 .cuisine-type {
@@ -162,8 +171,8 @@
     color: #666;
     border-radius: 20px;
     font-size: 0.9rem;
-    text-transform: uppercase;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .cuisine-description {
@@ -183,12 +192,17 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: auto;
 }
 
 .reserve-btn:hover {
     background-color: #1a252f;
 }
+
+
+
+/* ------------------------------ */
+/*            BACK LINK           */
+/* ------------------------------ */
 
 .back-link {
     text-align: center;
@@ -206,6 +220,12 @@
 .back-link a:hover {
     color: #c0a062;
 }
+
+
+
+/* ------------------------------ */
+/*         RESPONSIVE FIXES       */
+/* ------------------------------ */
 
 @media (max-width: 768px) {
     .header-content h1 {

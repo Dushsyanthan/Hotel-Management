@@ -8,7 +8,6 @@
             <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
             <a routerLink="/admin/add-room" routerLinkActive="active">Add Room</a>
             <a routerLink="/admin/add-offer" routerLinkActive="active">Add Offer</a>
-            <a routerLink="/admin/add-dish" routerLinkActive="active">Add Cuisine</a>
             <a (click)="logout()" class="logout-btn">Logout</a>
         </nav>
     </aside>
@@ -46,17 +45,34 @@
                 <h2>Quick Actions</h2>
             </div>
             <div class="dashboard-cards">
-                <div class="card" routerLink="/admin/add-room">
+                <div class="card" routerLink="/admin/manage-rooms">
                     <div class="card-icon">🛏️</div>
                     <h3>Manage Rooms</h3>
-                    <p>Add new suites and rooms.</p>
+                    <p>View, add and edit rooms.</p>
                 </div>
                 <div class="card" routerLink="/admin/add-offer">
                     <div class="card-icon">🏷️</div>
                     <h3>Manage Offers</h3>
                     <p>Create special promotions.</p>
                 </div>
-                <!-- Add Cuisine removed as per request -->
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Active Offers</h2>
+            </div>
+            <div class="offers-grid">
+                @for (offer of offers; track offer.id) {
+                <div class="offer-card">
+                    <h3>{{ offer.title }}</h3>
+                    <p>{{ offer.description }}</p>
+                    <span class="discount">{{ offer.discount }}% OFF</span>
+                </div>
+                }
+                @if (offers.length === 0) {
+                <p class="no-data">No active offers.</p>
+                }
             </div>
         </div>
 
@@ -75,6 +91,7 @@
                             <th>Room</th>
                             <th>Status</th>
                             <th>Amount</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,18 +99,23 @@
                         <tr>
                             <td>#{{ booking.id }}</td>
                             <td>{{ booking.noOfPerson }} Guests</td>
-                            <td>{{ booking.room?.roomType || 'N/A' }}</td>
+                            <td>{{ booking.room.roomType || 'N/A' }}</td>
                             <td>
                                 <span class="status-badge" [class]="booking.bookingStatus.toLowerCase()">
                                     {{ booking.bookingStatus }}
                                 </span>
                             </td>
                             <td>${{ booking.totalCost }}</td>
+                            <td>
+                                @if (booking.bookingStatus === 'CONFIRMED' || booking.bookingStatus === 'PENDING') {
+                                <button class="cancel-btn" (click)="cancelBooking(booking.id)">Cancel</button>
+                                }
+                            </td>
                         </tr>
                         }
                         @if (recentBookings.length === 0) {
                         <tr>
-                            <td colspan="5" class="no-data">No recent bookings found.</td>
+                            <td colspan="6" class="no-data">No recent bookings found.</td>
                         </tr>
                         }
                     </tbody>

@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookingService, BookingResponse } from '../../services/booking.service';
 
+import { PopupService } from '../../popup/popup.service';
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-admin-bookings',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './admin-bookings.html',
   styleUrl: './admin-bookings.css'
 })
@@ -14,7 +17,10 @@ export class AdminBookings implements OnInit {
   loading = true;
   errorMessage = '';
 
-  constructor(private bookingService: BookingService) { }
+  constructor(
+    private bookingService: BookingService,
+    private popupService: PopupService
+  ) { }
 
   ngOnInit() {
     this.loadBookings();
@@ -36,19 +42,22 @@ export class AdminBookings implements OnInit {
   }
 
   updateStatus(bookingId: number, status: string) {
-    if (!confirm(`Are you sure you want to mark this booking as ${status}?`)) return;
-
-    this.bookingService.updateBookingStatus(bookingId, status).subscribe({
-      next: () => {
-        // Update local state
-        const booking = this.bookings.find(b => b.id === bookingId);
-        if (booking) {
-          booking.bookingStatus = status;
-        }
-      },
-      error: (err) => {
-        console.error('Error updating status:', err);
-        alert('Failed to update status.');
+    this.popupService.confirm(`Are you sure you want to mark this booking as ${status}?`, 'Update Status').subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.bookingService.updateBookingStatus(bookingId, status).subscribe({
+          next: () => {
+            // Update local state
+            const booking = this.bookings.find(b => b.id === bookingId);
+            if (booking) {
+              booking.bookingStatus = status;
+            }
+            this.popupService.showSuccess(`Booking marked as ${status}`);
+          },
+          error: (err) => {
+            console.error('Error updating status:', err);
+            this.popupService.showError('Failed to update status.');
+          }
+        });
       }
     });
   }

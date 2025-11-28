@@ -9,4 +9,5 @@ import com.example.le_mans_hotel.model.User;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByUser(User user);
+	List<Booking> findByRoomId(Long id);
 }

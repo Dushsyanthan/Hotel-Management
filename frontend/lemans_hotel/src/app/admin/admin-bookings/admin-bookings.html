@@ -46,8 +46,8 @@
                     </td>
                     <td>
                         <div class="room-info">
-                            <span class="room-type">🏨 {{ booking.room?.roomType || 'N/A' }}</span>
-                            <span class="cuisine-name">🍽️ {{ booking.dish?.cuisineName || 'N/A' }}</span>
+                            <span class="room-type">🏨 {{ booking.room.roomType || 'N/A' }}</span>
+                            <span class="cuisine-name">🍽️ {{ booking.dish.cuisineName || 'N/A' }}</span>
                         </div>
                     </td>
                     <td>
@@ -74,9 +74,9 @@
                             </button>
                             }
                             @if (booking.bookingStatus === 'CONFIRMED') {
-                            <button (click)="updateStatus(booking.id, 'CHECKED_IN')" class="action-btn checkin"
-                                title="Check In">
-                                🏨 In
+                            <button (click)="updateStatus(booking.id, 'CANCELLED')" class="action-btn reject"
+                                title="Cancel Booking">
+                                ❌
                             </button>
                             }
                             @if (booking.bookingStatus === 'CHECKED_IN') {

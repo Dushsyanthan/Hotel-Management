@@ -24,7 +24,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleBadRequest(BadRequestException ex, WebRequest request) {
         return new ResponseEntity<>(buildError(HttpStatus.BAD_REQUEST, ex.getMessage(), request), HttpStatus.BAD_REQUEST);
     }
-
+    
+    @ExceptionHandler(RoomNotAvailableException.class)
+    public ResponseEntity<?> handleBadRequest(RoomNotAvailableException ex, WebRequest request) {
+        return new ResponseEntity<>(buildError(HttpStatus.BAD_REQUEST, ex.getMessage(), request), HttpStatus.BAD_REQUEST);
+    }
+   
+    
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<?> handleUnauthorized(UnauthorizedException ex, WebRequest request) {
         return new ResponseEntity<>(buildError(HttpStatus.UNAUTHORIZED, ex.getMessage(), request), HttpStatus.UNAUTHORIZED);

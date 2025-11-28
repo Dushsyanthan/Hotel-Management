@@ -49,5 +49,9 @@ export const routes: Routes = [
         path: 'my-bookings',
         loadComponent: () => import('./my-bookings/my-bookings').then(m => m.MyBookings),
         canActivate: [authGuard]
+    },
+    {
+        path: 'forgot-password',
+        loadComponent: () => import('./forgot-password/forgot-password').then(m => m.ForgotPasswordComponent)
     }
 ];

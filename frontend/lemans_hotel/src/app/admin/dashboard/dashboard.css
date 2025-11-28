@@ -270,3 +270,64 @@ tr:last-child td {
     font-size: 0.9rem;
     margin: 0;
 }
+
+/* Active Offers Grid */
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.offer-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #c0a062;
+    transition: transform 0.3s ease;
+}
+
+.offer-card:hover {
+    transform: translateY(-3px);
+}
+
+.offer-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.offer-card p {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin: 0 0 1rem 0;
+    line-height: 1.5;
+}
+
+.offer-card .discount {
+    display: inline-block;
+    background: rgba(192, 160, 98, 0.1);
+    color: #c0a062;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* Cancel Button */
+.cancel-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.cancel-btn:hover {
+    background: #c0392b;
+}

@@ -1,21 +1,4 @@
 <div class="home-container">
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <h1>Le Mans Hotel</h1>
-                <p class="tagline">Premium Luxury Since 1890</p>
-            </div>
-            <nav class="nav">
-                <a routerLink="/home" class="nav-link active">Home</a>
-                <a routerLink="/rooms" class="nav-link">Rooms</a>
-                <a routerLink="/dining" class="nav-link">Dining</a>
-                <a routerLink="/premium-services" class="nav-link">Services</a>
-                <a routerLink="/my-bookings" class="nav-link">My Bookings</a>
-                <button (click)="logout()" class="logout-btn">Logout</button>
-            </nav>
-        </div>
-    </header>
-
     <section class="hero">
         <div class="hero-content">
             <h2 class="hero-title">Welcome to Luxury</h2>
@@ -48,6 +31,72 @@
                 <div class="feature-icon">🏛️</div>
                 <h3>Historic Elegance</h3>
                 <p>Classic architecture blended with modern luxury</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <h2 class="section-title">Why Choose Le Mans</h2>
+        <p class="section-subtitle">A legacy of excellence spanning over a century, dedicated to providing you with an
+            unforgettable experience.</p>
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>130+</h3>
+                <p>Years of History</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Luxury Rooms</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Awards Won</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>Premium Service</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2 class="section-title">Guest Experiences</h2>
+        <p class="section-subtitle">Hear what our distinguished guests have to say about their stay.</p>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"An absolute masterpiece of hospitality. The attention to detail in the
+                    Presidential Suite was simply breathtaking. Truly a royal experience."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JD</div>
+                    <div class="author-info">
+                        <h4>James Dawson</h4>
+                        <p>Business Traveler</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The dining experience at Le Petit Palais was the highlight of our trip.
+                    Exquisite flavors and impeccable service. We will definitely return."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SM</div>
+                    <div class="author-info">
+                        <h4>Sarah Mitchell</h4>
+                        <p>Food Critic</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"From the moment we arrived, we were treated like family. The concierge team
+                    went above and beyond to make our anniversary special."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RK</div>
+                    <div class="author-info">
+                        <h4>Robert King</h4>
+                        <p>Leisure Guest</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

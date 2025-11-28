@@ -56,7 +56,7 @@ export class BookingService {
     }
 
     updateBookingStatus(bookingId: number, status: string): Observable<BookingResponse> {
-        return this.http.put<BookingResponse>(`${this.adminUrl}/${bookingId}/${status}`, {});
+        return this.http.put<BookingResponse>(`${this.adminUrl}/${bookingId}/status`, {}, { params: { status } });
     }
 
     getAllCuisines(): Observable<any[]> {

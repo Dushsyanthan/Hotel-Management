@@ -208,4 +208,12 @@ export class MyBookings implements OnInit {
 
         doc.save(`Le-Mans-Hotel-Booking-${booking.id}.pdf`);
     }
+
+    logout() {
+        // Clear any stored tokens or user data
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        // Redirect to login page
+        window.location.href = '/login';
+    }
 }

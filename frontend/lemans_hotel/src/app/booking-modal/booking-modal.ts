@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BookingService, BookingRequest } from '../services/booking.service';
 
+import { PopupService } from '../popup/popup.service';
+
 @Component({
   selector: 'app-booking-modal',
   standalone: true,
@@ -27,10 +29,18 @@ export class BookingModal {
 
   minDate = new Date().toISOString().split('T')[0];
 
-  constructor(private bookingService: BookingService) { }
+  isLoading = false;
+  showSuccess = false;
+  successMessage = '';
+
+  constructor(
+    private bookingService: BookingService,
+    private popupService: PopupService
+  ) { }
 
   close() {
     this.isOpen = false;
+    this.showSuccess = false;
     this.closeModal.emit();
     this.resetForm();
   }
@@ -41,13 +51,17 @@ export class BookingModal {
       checkOutDate: '',
       noOfPerson: 1
     };
+    this.isLoading = false;
+    this.showSuccess = false;
   }
 
   submitBooking() {
     if (!this.roomId || !this.dishId) {
-      alert('Missing booking information. Please try again.');
+      this.popupService.showError('Missing booking information. Please try again.');
       return;
     }
+
+    this.isLoading = true;
 
     const bookingRequest: BookingRequest = {
       roomId: this.roomId,
@@ -59,13 +73,19 @@ export class BookingModal {
 
     this.bookingService.createBooking(bookingRequest).subscribe({
       next: (response) => {
-        alert(`Booking confirmed! Total cost: $${response.totalCost}`);
+        this.isLoading = false;
+        this.showSuccess = true;
+        this.successMessage = `Booking confirmed! Total cost: $${response.totalCost}`;
         this.bookingSuccess.emit();
-        this.close();
+        // Close after 2 seconds
+        setTimeout(() => {
+          this.close();
+        }, 2000);
       },
       error: (err) => {
+        this.isLoading = false;
         console.error('Booking error:', err);
-        alert('Booking failed. Please try again or contact support.');
+        this.popupService.showError('Booking failed. Please try again or contact support.');
       }
     });
   }

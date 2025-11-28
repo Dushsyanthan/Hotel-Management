@@ -34,7 +34,7 @@ export class Rooms implements OnInit {
     loadRooms() {
         this.loading = true;
         this.errorMessage = '';
-        this.debugInfo = 'Attempting to fetch from: http://localhost:8080/user/rooms';
+        this.debugInfo = 'Attempting to fetch from: http://localhost:8080/api/rooms';
 
         this.roomService.getAllRooms().subscribe({
             next: (rooms) => {
@@ -58,7 +58,7 @@ export class Rooms implements OnInit {
                     this.debugInfo = '403 Forbidden - Check user role/permissions';
                 } else if (err.status === 404) {
                     this.errorMessage = 'Rooms endpoint not found. Check backend URL.';
-                    this.debugInfo = '404 Not Found - Endpoint /user/rooms does not exist';
+                    this.debugInfo = '404 Not Found - Endpoint /api/rooms does not exist';
                 } else {
                     this.errorMessage = `Failed to load rooms. Error: ${err.status} - ${err.statusText}`;
                     this.debugInfo = `HTTP ${err.status}: ${err.message}`;
@@ -96,5 +96,13 @@ export class Rooms implements OnInit {
     onBookingSuccess() {
         console.log('Booking successful!');
         // Optionally refresh rooms or show success message
+    }
+
+    logout() {
+        // Clear any stored tokens or user data
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        // Redirect to login page
+        window.location.href = '/login';
     }
 }
