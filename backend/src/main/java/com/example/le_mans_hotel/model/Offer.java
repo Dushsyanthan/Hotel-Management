@@ -1,4 +1,5 @@
 package com.example.le_mans_hotel.model;
+
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -17,11 +18,11 @@ public class Offer {
 
     private String title;
     private String description;
-    
+
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
-    
+
     @Builder.Default
     private Boolean active = true;
-    
+
 }

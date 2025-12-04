@@ -26,13 +26,14 @@
         @for (room of rooms; track room.id) {
         <div class="room-card">
             <div class="room-image-container">
-                <img [src]="room.imageUrl" [alt]="room.type" class="room-image">
+                <img [src]="getRoomImageUrl(room.id)" [alt]="room.roomType" class="room-image"
+                    (error)="onImageError($event)">
                 <div class="room-overlay">
-                    <span class="room-number">Room {{ room.roomNumber }}</span>
+                    <span class="room-type-badge">{{ room.roomType }}</span>
                 </div>
             </div>
             <div class="room-details">
-                <h3 class="room-type">{{ room.type }}</h3>
+                <h3 class="room-type">{{ room.roomType }}</h3>
                 @if (room.description) {
                 <p class="room-description">{{ room.description }}</p>
                 }

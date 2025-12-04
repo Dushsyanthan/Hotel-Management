@@ -19,6 +19,8 @@ export class Rooms implements OnInit {
     errorMessage = '';
     debugInfo = '';
 
+    private defaultImage = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400';
+
     // Two-step booking flow state
     showCuisineModal = false;
     showBookingModal = false;
@@ -34,15 +36,14 @@ export class Rooms implements OnInit {
     loadRooms() {
         this.loading = true;
         this.errorMessage = '';
-        this.debugInfo = 'Attempting to fetch from: http://localhost:8080/api/rooms';
+        this.debugInfo = 'Attempting to fetch rooms...';
 
         this.roomService.getAllRooms().subscribe({
             next: (rooms) => {
                 console.log('✅ Rooms loaded successfully:', rooms);
-                // Filter out rooms without valid imageUrl
-                this.rooms = rooms.filter(room => room.imageUrl && room.imageUrl.trim() !== '');
+                this.rooms = rooms;
                 this.loading = false;
-                this.debugInfo = `Successfully loaded ${this.rooms.length} rooms with images`;
+                this.debugInfo = `Successfully loaded ${this.rooms.length} rooms`;
             },
             error: (err) => {
                 console.error('❌ Error loading rooms:', err);
@@ -58,7 +59,7 @@ export class Rooms implements OnInit {
                     this.debugInfo = '403 Forbidden - Check user role/permissions';
                 } else if (err.status === 404) {
                     this.errorMessage = 'Rooms endpoint not found. Check backend URL.';
-                    this.debugInfo = '404 Not Found - Endpoint /api/rooms does not exist';
+                    this.debugInfo = '404 Not Found - Endpoint does not exist';
                 } else {
                     this.errorMessage = `Failed to load rooms. Error: ${err.status} - ${err.statusText}`;
                     this.debugInfo = `HTTP ${err.status}: ${err.message}`;
@@ -67,6 +68,15 @@ export class Rooms implements OnInit {
                 this.loading = false;
             }
         });
+    }
+
+    getRoomImageUrl(roomId: number): string {
+        return this.roomService.getRoomImageUrl(roomId);
+    }
+
+    onImageError(event: Event) {
+        const img = event.target as HTMLImageElement;
+        img.src = this.defaultImage;
     }
 
     // Step 1: User clicks "Book Now" on a room

@@ -27,8 +27,7 @@
         @for (room of rooms; track room.id) {
         <div class="room-card">
             <div class="room-image">
-                <img [src]="room.image || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400'"
-                    [alt]="room.roomType">
+                <img [src]="getRoomImageUrl(room.id)" [alt]="room.roomType" (error)="onImageError($event)">
             </div>
             <div class="room-details">
                 <h3>{{ room.roomType }}</h3>
@@ -44,7 +43,7 @@
         </div>
         }
         @if (rooms.length === 0) {
-        <p class="no-data">No rooms found.</p>
+        <p class="no-data">No rooms found. Add your first room!</p>
         }
     </div>
     }

@@ -18,4 +18,15 @@ public class UserRoomController {
     public List<Room> getAllRooms() {
         return roomService.findAll();
     }
+
+    @GetMapping("/{id}")
+    public Room getRoomById(@PathVariable Long id) {
+        return roomService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Room not found with id: " + id));
+    }
+
+    @GetMapping("/available")
+    public List<Room> getAvailableRooms() {
+        return roomService.findByAvailable(true);
+    }
 }

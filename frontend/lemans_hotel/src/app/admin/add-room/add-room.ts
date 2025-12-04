@@ -14,12 +14,14 @@ import { PopupService } from '../../popup/popup.service';
 })
 export class AddRoom {
   room = {
-    name: '',
-    type: 'suite',
-    price: null,
-    description: '',
-    image: ''
+    type: 'Royal Suite',
+    price: null as number | null,
+    description: ''
   };
+
+  selectedFile: File | null = null;
+  selectedFileName: string = '';
+  imagePreview: string | null = null;
 
   constructor(
     private router: Router,
@@ -27,18 +29,58 @@ export class AddRoom {
     private popupService: PopupService
   ) { }
 
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      this.selectedFileName = this.selectedFile.name;
+
+      // Create image preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagePreview = e.target?.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  removeImage() {
+    this.selectedFile = null;
+    this.selectedFileName = '';
+    this.imagePreview = null;
+  }
+
+  isFormValid(): boolean {
+    return !!(
+      this.room.type &&
+      this.room.price &&
+      this.room.price > 0 &&
+      this.room.description &&
+      this.room.description.length >= 10 &&
+      this.selectedFile
+    );
+  }
+
   onSubmit() {
-    // Provide default image if empty
-    if (!this.room.image || this.room.image.trim() === '') {
-      this.room.image = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800';
+    if (!this.isFormValid()) {
+      this.popupService.showError('Please fill all fields and select an image.');
+      return;
     }
 
-    console.log('Adding room:', this.room);
-    this.adminService.addRoom(this.room).subscribe({
+    // Create FormData for multipart upload
+    const formData = new FormData();
+    formData.append('roomType', this.room.type);
+    formData.append('description', this.room.description);
+    formData.append('price', String(this.room.price));
+    formData.append('available', 'true');
+    formData.append('image', this.selectedFile!);
+
+    console.log('Adding room with image...');
+    this.adminService.addRoom(formData).subscribe({
       next: (response: any) => {
         console.log('Room added successfully', response);
         this.popupService.showSuccess('Room added successfully!');
-        this.router.navigate(['/admin/dashboard']);
+        this.router.navigate(['/admin/manage-rooms']);
       },
       error: (error: any) => {
         console.error('Error adding room', error);

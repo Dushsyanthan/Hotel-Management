@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
-import { RoomService } from '../../services/room.service';
 import { PopupService } from '../../popup/popup.service';
 
 @Component({
@@ -16,19 +15,23 @@ import { PopupService } from '../../popup/popup.service';
 export class EditRoom implements OnInit {
     roomId: number = 0;
     room = {
-        name: '',
-        type: 'suite',
-        price: null,
+        roomType: 'Royal Suite',
+        price: null as number | null,
         description: '',
-        image: ''
+        available: true
     };
     loading = true;
+
+    // Image handling
+    currentImageUrl: string | null = null;
+    selectedFile: File | null = null;
+    selectedFileName: string = '';
+    imagePreview: string | null = null;
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private adminService: AdminService,
-        private roomService: RoomService,
         private popupService: PopupService
     ) { }
 
@@ -39,15 +42,18 @@ export class EditRoom implements OnInit {
 
     loadRoom() {
         this.loading = true;
-        this.roomService.getRoomById(this.roomId).subscribe({
+        this.adminService.getRoomById(this.roomId).subscribe({
             next: (data: any) => {
                 this.room = {
-                    name: data.name || data.roomType,
-                    type: data.roomType || data.type,
+                    roomType: data.roomType,
                     price: data.price,
                     description: data.description || '',
-                    image: data.image || ''
+                    available: data.available ?? true
                 };
+                // Set current image URL if room has image data
+                if (data.imageData || data.imageName) {
+                    this.currentImageUrl = this.adminService.getRoomImageUrl(this.roomId);
+                }
                 this.loading = false;
             },
             error: (error: any) => {
@@ -58,9 +64,42 @@ export class EditRoom implements OnInit {
         });
     }
 
+    onFileSelected(event: Event) {
+        const input = event.target as HTMLInputElement;
+        if (input.files && input.files.length > 0) {
+            this.selectedFile = input.files[0];
+            this.selectedFileName = this.selectedFile.name;
+
+            // Create image preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.imagePreview = e.target?.result as string;
+            };
+            reader.readAsDataURL(this.selectedFile);
+        }
+    }
+
+    removeImage() {
+        this.selectedFile = null;
+        this.selectedFileName = '';
+        this.imagePreview = null;
+    }
+
     onSubmit() {
-        console.log('Updating room:', this.room);
-        this.adminService.updateRoom(this.roomId, this.room).subscribe({
+        // Create FormData for multipart upload
+        const formData = new FormData();
+        formData.append('roomType', this.room.roomType);
+        formData.append('description', this.room.description);
+        formData.append('price', String(this.room.price));
+        formData.append('available', String(this.room.available));
+
+        // Only append image if a new one was selected
+        if (this.selectedFile) {
+            formData.append('image', this.selectedFile);
+        }
+
+        console.log('Updating room:', this.roomId);
+        this.adminService.updateRoom(this.roomId, formData).subscribe({
             next: (response: any) => {
                 console.log('Room updated successfully', response);
                 this.popupService.showSuccess('Room updated successfully!');

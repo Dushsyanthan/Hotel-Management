@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class RoomServiceImpl implements RoomService {
 
 	public final RoomRepository roomRepository;
-	
+
 	@Override
 	public Room save(Room room) {
 		return roomRepository.save(room);
@@ -38,15 +38,24 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	 public Room update(Long id, Room roomDetails) {
-         Room room = roomRepository.findById(id).orElseThrow();
-         room.setRoomType(roomDetails.getRoomType());
-         room.setDescription(roomDetails.getDescription());
-         room.setPrice(roomDetails.getPrice());
-         room.setAvailable(roomDetails.getAvailable());
-         room.setImageUrl(roomDetails.getImageUrl()); 
-         return roomRepository.save(room);
-     }
+	public Room update(Long id, Room roomDetails) {
+		Room room = roomRepository.findById(id).orElseThrow();
+		room.setRoomType(roomDetails.getRoomType());
+		room.setDescription(roomDetails.getDescription());
+		room.setPrice(roomDetails.getPrice());
+		room.setAvailable(roomDetails.getAvailable());
+		// Update image data if provided
+		if (roomDetails.getImageData() != null) {
+			room.setImageData(roomDetails.getImageData());
+			room.setImageName(roomDetails.getImageName());
+			room.setImageType(roomDetails.getImageType());
+		}
+		return roomRepository.save(room);
+	}
 
-	
+	@Override
+	public List<Room> findByAvailable(boolean available) {
+		return roomRepository.findByAvailable(available);
+	}
+
 }

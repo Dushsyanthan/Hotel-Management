@@ -124,6 +124,7 @@
 .eye-icon {
   font-size: 18px;
   user-select: none;
+  cursor: pointer;
 }
 
 .form-group input.error {
@@ -146,7 +147,7 @@
 }
 
 .forgot-password {
-  color: #3b82f6;
+  color: #d3b001;
   font-size: 14px;
   text-decoration: none;
   transition: color 0.2s;
@@ -223,5 +224,50 @@
 
   .login-header h1 {
     font-size: 28px;
+  }
+}
+
+/* Eye Icon Blinking Animation */
+.eye-icon {
+  font-size: 18px;
+  user-select: none;
+  cursor: pointer;
+  display: inline-block;
+  animation: eyeBlink 4s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.eye-icon:hover {
+  animation: eyeWiggle 0.5s ease-in-out infinite;
+  transform: scale(1.2);
+}
+
+@keyframes eyeBlink {
+
+  0%,
+  45%,
+  55%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes eyeWiggle {
+
+  0%,
+  100% {
+    transform: scale(1.2) rotate(0deg);
+  }
+
+  25% {
+    transform: scale(1.2) rotate(-5deg);
+  }
+
+  75% {
+    transform: scale(1.2) rotate(5deg);
   }
 }

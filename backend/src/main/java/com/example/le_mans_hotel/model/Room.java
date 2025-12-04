@@ -33,6 +33,12 @@ public class Room {
     @Builder.Default
     private Boolean available = true;
 
-    @NotBlank(message = "Image URL cannot be empty")
-    private String imageUrl;
+    // Image stored as binary data
+    @Lob
+    @Column(name = "image_data", columnDefinition = "LONGBLOB")
+    private byte[] imageData;
+
+    private String imageName;
+
+    private String imageType;
 }

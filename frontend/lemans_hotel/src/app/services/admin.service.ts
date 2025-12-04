@@ -15,24 +15,37 @@ export class AdminService {
         return this.http.post(`${this.baseUrl}/offers/add`, offer);
     }
 
-
     addCuisine(cuisine: any): Observable<any> {
         return this.http.post(`${this.baseUrl}/dishes/add`, cuisine);
     }
 
-    addRoom(room: any): Observable<any> {
-        return this.http.post(`${this.baseUrl}/rooms`, room);
+    // Room operations with image upload
+    addRoom(roomData: FormData): Observable<any> {
+        return this.http.post(`${this.baseUrl}/rooms`, roomData);
     }
 
-    updateRoom(id: number, room: any): Observable<any> {
-        return this.http.put(`${this.baseUrl}/rooms/${id}`, room);
+    updateRoom(id: number, roomData: FormData): Observable<any> {
+        return this.http.put(`${this.baseUrl}/rooms/${id}`, roomData);
     }
 
     getAllOffers(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.baseUrl}/offers`);
+        return this.http.get<any[]>(`${this.baseUrl}/offers/all`);
     }
 
     getAllRooms(): Observable<any[]> {
         return this.http.get<any[]>(`${this.baseUrl}/rooms`);
+    }
+
+    getRoomById(id: number): Observable<any> {
+        return this.http.get<any>(`${this.baseUrl}/rooms/${id}`);
+    }
+
+    // Get room image URL for displaying
+    getRoomImageUrl(roomId: number): string {
+        return `${this.baseUrl}/rooms/${roomId}/image`;
+    }
+
+    deleteRoom(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.baseUrl}/rooms/${id}`);
     }
 }

@@ -30,8 +30,8 @@ export class Navbar implements OnInit {
   }
 
   checkVisibility(url: string) {
-    // Hide navbar on login, signup, forgot-password, and admin pages
-    this.showNavbar = !url.includes('/login') && !url.includes('/signup') && !url.includes('/forgot-password') && !url.includes('/admin');
+    // Hide navbar on landing, login, signup, forgot-password, and admin pages
+    this.showNavbar = url !== '/' && !url.includes('/login') && !url.includes('/signup') && !url.includes('/forgot-password') && !url.includes('/admin');
   }
 
   logout() {

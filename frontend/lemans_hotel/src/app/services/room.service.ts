@@ -25,4 +25,9 @@ export class RoomService {
     getAvailableRooms(): Observable<Room[]> {
         return this.http.get<Room[]>(`${this.apiUrl}/available`);
     }
+
+    // Get room image URL (served from admin endpoint)
+    getRoomImageUrl(roomId: number): string {
+        return `/admin/rooms/${roomId}/image`;
+    }
 }

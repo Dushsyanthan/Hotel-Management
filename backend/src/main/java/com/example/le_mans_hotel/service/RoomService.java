@@ -17,4 +17,6 @@ public interface RoomService {
 
 	Room update(Long id, Room roomDetails);
 
+	List<Room> findByAvailable(boolean available);
+
 }
