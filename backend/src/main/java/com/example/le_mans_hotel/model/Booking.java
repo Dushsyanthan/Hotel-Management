@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -47,13 +47,12 @@ public class Booking {
     private Dish dish;
 
     @NotNull(message = "Check-in date is required")
-    @Future(message = "Check-in date must be in the future")
+    @FutureOrPresent(message = "Check-in date must be today or in the future")
     private LocalDate checkInDate;
 
     @NotNull(message = "Check-out date is required")
-    @Future(message = "Check-out date must be in the future")
+    @FutureOrPresent(message = "Check-out date must be today or in the future")
     private LocalDate checkOutDate;
-
 
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;

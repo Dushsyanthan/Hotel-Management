@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @Configuration
 @RequiredArgsConstructor
 @EnableMethodSecurity
@@ -24,30 +25,30 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth        
-                .requestMatchers(
-                    "/swagger-ui.html",
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**",
-                    "/v3/api-docs",
-                    "/webjars/**"
-                ).permitAll()
-                
-                .requestMatchers("/auth/**").permitAll()
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs",
+                                "/webjars/**",
+                                "/public/**")
+                        .permitAll()
 
-                .requestMatchers("/api/ai/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/auth/**").permitAll()
 
-                .requestMatchers("/api/ai/user/**").hasRole("USER")
+                        .requestMatchers("/api/ai/admin/**").hasRole("ADMIN")
 
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/api/ai/user/**").hasRole("USER")
 
-                .anyRequest().authenticated()
-            )
-            .userDetailsService(userDetailsService)
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/user/**").hasRole("USER")
+
+                        .anyRequest().authenticated())
+                .userDetailsService(userDetailsService)
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

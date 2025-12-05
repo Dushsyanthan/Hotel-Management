@@ -26,8 +26,8 @@ export class RoomService {
         return this.http.get<Room[]>(`${this.apiUrl}/available`);
     }
 
-    // Get room image URL (served from admin endpoint)
+    // Get room image URL (served from public endpoint - no auth required)
     getRoomImageUrl(roomId: number): string {
-        return `/admin/rooms/${roomId}/image`;
+        return `http://localhost:8080/public/rooms/${roomId}/image`;
     }
 }

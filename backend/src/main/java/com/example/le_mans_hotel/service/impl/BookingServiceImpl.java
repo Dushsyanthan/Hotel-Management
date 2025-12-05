@@ -1,6 +1,8 @@
 package com.example.le_mans_hotel.service.impl;
 
 
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -91,8 +93,10 @@ public class BookingServiceImpl implements BookingService {
                         "Sorry, Room is not available for the selected dates");
             }
         }
-
-
+        int noOfDays = (int) ChronoUnit.DAYS.between(
+                request.getCheckInDate(),
+                request.getCheckOutDate()
+        );
         // Calculate total cost
         double totalCost = dish.getPricePerPerson() * request.getNoOfPerson();
 
@@ -104,7 +108,7 @@ public class BookingServiceImpl implements BookingService {
                 .checkOutDate(request.getCheckOutDate())
                 .bookingStatus(BookingStatus.CONFIRMED)
                 .noOfPerson(request.getNoOfPerson())
-                .totalCost(totalCost + room.getPrice())
+                .totalCost((totalCost + room.getPrice())*noOfDays)
                 .build();
 
         Booking saved = bookingRepository.save(booking);

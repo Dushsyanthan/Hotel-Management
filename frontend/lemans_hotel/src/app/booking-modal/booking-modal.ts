@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BookingService, BookingRequest } from '../services/booking.service';
@@ -12,7 +12,7 @@ import { PopupService } from '../popup/popup.service';
   templateUrl: './booking-modal.html',
   styleUrl: './booking-modal.css',
 })
-export class BookingModal {
+export class BookingModal implements OnChanges {
   @Input() isOpen = false;
   @Input() roomId: number | null = null;
   @Input() dishId: number | null = null;
@@ -27,7 +27,11 @@ export class BookingModal {
     noOfPerson: 1
   };
 
-  minDate = new Date().toISOString().split('T')[0];
+  // Allow booking from today
+  minDate = this.getTodayDate();
+
+  // Maximum persons - 3 if dish is selected, otherwise 10
+  maxPersons = 10;
 
   isLoading = false;
   showSuccess = false;
@@ -37,6 +41,37 @@ export class BookingModal {
     private bookingService: BookingService,
     private popupService: PopupService
   ) { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // Update max persons when dishId changes
+    if (changes['dishId'] || changes['isOpen']) {
+      this.maxPersons = this.dishId ? 3 : 10;
+      // Reset persons if exceeds new max
+      if (this.booking.noOfPerson > this.maxPersons) {
+        this.booking.noOfPerson = this.maxPersons;
+      }
+    }
+  }
+
+  getTodayDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  incrementPersons() {
+    if (this.booking.noOfPerson < this.maxPersons) {
+      this.booking.noOfPerson++;
+    }
+  }
+
+  decrementPersons() {
+    if (this.booking.noOfPerson > 1) {
+      this.booking.noOfPerson--;
+    }
+  }
 
   close() {
     this.isOpen = false;

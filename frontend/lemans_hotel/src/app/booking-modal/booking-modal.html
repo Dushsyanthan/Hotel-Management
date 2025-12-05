@@ -23,22 +23,33 @@
             <form (ngSubmit)="submitBooking()" class="booking-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="checkIn">Check-in Date</label>
-                        <input type="date" id="checkIn" [(ngModel)]="booking.checkInDate" name="checkIn" required
-                            [min]="minDate" />
+                        <label for="checkIn">📅 Check-in Date</label>
+                        <div class="date-input-wrapper">
+                            <input type="date" id="checkIn" [(ngModel)]="booking.checkInDate" name="checkIn" required
+                                [min]="minDate" />
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="checkOut">Check-out Date</label>
-                        <input type="date" id="checkOut" [(ngModel)]="booking.checkOutDate" name="checkOut" required
-                            [min]="booking.checkInDate || minDate" />
+                        <label for="checkOut">📅 Check-out Date</label>
+                        <div class="date-input-wrapper">
+                            <input type="date" id="checkOut" [(ngModel)]="booking.checkOutDate" name="checkOut" required
+                                [min]="booking.checkInDate || minDate" />
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="persons">Number of Persons</label>
-                    <input type="number" id="persons" [(ngModel)]="booking.noOfPerson" name="persons" required min="1"
-                        max="10" />
+                    <label for="persons">👥 Number of Persons</label>
+                    <div class="persons-input-wrapper">
+                        <button type="button" class="person-btn minus" (click)="decrementPersons()"
+                            [disabled]="booking.noOfPerson <= 1">−</button>
+                        <input type="number" id="persons" [(ngModel)]="booking.noOfPerson" name="persons" required
+                            [min]="1" [max]="maxPersons" readonly />
+                        <button type="button" class="person-btn plus" (click)="incrementPersons()"
+                            [disabled]="booking.noOfPerson >= maxPersons">+</button>
+                    </div>
+                    <p class="person-hint" *ngIf="dishId">Maximum {{ maxPersons }} persons for room with dining</p>
                 </div>
 
                 <div class="form-actions">
